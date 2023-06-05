@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\frontend\BusquedaController;
+use App\Http\Controllers\Frontend\BusquedaController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\SeriesDetailController;
 use Illuminate\Support\Facades\Http;
