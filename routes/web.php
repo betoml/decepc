@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\frontend\BusquedaController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\SeriesDetailController;
 use Illuminate\Support\Facades\Http;
@@ -58,3 +59,6 @@ Route::get('/s/{code}',[SeriesDetailController::class, 'index'])->name('series.s
 Route::get('/player', function () {
     return view('videoplayer.videoplayer');
 })->name('videoplayer');
+
+
+Route::get('/buscar', [BusquedaController::class, 'buscar'])->name('buscar');
