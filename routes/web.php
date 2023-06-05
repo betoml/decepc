@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\LoginController;
+use App\Http\Controllers\SeriesDetailController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,24 @@ Route::get('/series', function () {
 
     return view('series.index', compact('peliculas'));
 })->name('series');
+
+
+Route::get('/peliculas', function () {
+    $token = session('token');
+    $peliculas = Http::withToken($token)->get('https://euforia-films.up.railway.app/api/peliculas');
+
+
+    return view('peliculas.index', compact('peliculas'));
+})->name('peliculas');
+
+Route::get('/p/{code}', function ($code) {
+    $token = session('token');
+    $peliculas = Http::withToken($token)->post('https://euforia-films.up.railway.app/api/peliculas-detail', [
+        'id_thmdb' => $code
+    ]);
+
+    return view('pelicula-detail.index', compact('peliculas'));
+})->name('pelicula.show');
+
+
+Route::get('/s/{code}',[SeriesDetailController::class, 'index'])->name('series.show');

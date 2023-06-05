@@ -13,10 +13,10 @@
 
 <body class="bgdarkgradient vh-100 d-flex align-items-center justify-content-center">
 
-    <div class="col-md-6 tarjeta bgdarkgradient shadow-lg text-center ">
+    <div class="col-md-6 tarjeta bgdarkgradient shadow-lg text-center">
         <h1 class="text-white">LOGIN</h1>
         <div class="container">
-            <div id="mensaje" class="colorPrincipal text-white "></div>
+            <div id="mensaje" class="colorPrincipal text-white"></div>
             @if (session()->has('mensaje'))
                 <div class="colorTxt">{{ session('mensaje') }}</div>
             @endif
@@ -29,21 +29,17 @@
             <form id="login">
                 @csrf
                 <div class="row">
-                    <div class="col-md-12 mt-3 ">
-
+                    <div class="col-md-12 mt-3">
                         <input name="email" type="email" class="form-control" placeholder="Email">
                     </div>
                     <div class="col-md-12 mt-3">
-
                         <input name="password" type="password" class="form-control" placeholder="Password">
                     </div>
                     <div class="col-md-12 mt-3 mb-3">
-
                         <button type="submit" class="btn colorPrincipal text-white w-100">INICIAR SESIÓN</button>
                     </div>
                 </div>
             </form>
-
         </div>
     </div>
 
@@ -62,54 +58,52 @@
 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
-
                     if (xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
-
-
-                        // La petición se completó correctamente
                         console.log(response.message);
-                        if (response.code === 1) {
-                            const mensaje = document.getElementById('mensaje').innerHTML = response.message;
+                        if (response.code === 3) {
+                            window.location.replace('/panel');
                         } else {
-                            const mensaje = document.getElementById('mensaje').innerHTML = response.message;
+                            if (response.code === 1) {
+                                document.getElementById('mensaje').innerHTML = response.message;
+                            } else {
+                                document.getElementById('mensaje').innerHTML = response.message;
 
-                            const button = document.createElement('button');
-                            button.textContent = 'Click para borrar las sesiones';
-                            button.classList.add('colorPrincipal', 'btn', 'text-white', 'tarjeta', 'm-3');
-                            button.onclick = function() {
-                                const userId = response.user.id;
+                                const button = document.createElement('button');
+                                button.textContent = 'Click para borrar las sesiones';
+                                button.classList.add('colorPrincipal', 'btn', 'text-white', 'tarjeta', 'm-3');
+                                button.onclick = function() {
+                                    const userId = response.user.id;
 
-                                // Configurar los datos a enviar en la solicitud POST
-                                const data = {
-                                    id: userId
+                                    // Configurar los datos a enviar en la solicitud POST
+                                    const data = {
+                                        id: userId
+                                    };
+
+                                    // Realizar la solicitud AJAX con fetch() utilizando el método POST
+                                    fetch('https://euforia-films.up.railway.app/api/logouts', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify(data)
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            // Mostrar el mensaje de la respuesta en el div con ID "mensaje"
+                                            document.getElementById('mensaje').innerHTML = data.message;
+                                        })
+                                        .catch(error => {
+                                            console.error('Error en la solicitud AJAX:', error);
+                                        });
                                 };
 
-                                // Realizar la solicitud AJAX con fetch() utilizando el método POST
-                                fetch('https://euforia-films.up.railway.app/api/logouts', {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/json'
-                                        },
-                                        body: JSON.stringify(data)
-                                    })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        // Mostrar el mensaje de la respuesta en el div con ID "mensaje"
-                                        document.getElementById('mensaje').innerHTML = data.message;
-                                    })
-                                    .catch(error => {
-                                        console.error('Error en la solicitud AJAX:', error);
-                                    });
-                            };
-
-                            // Agregar el botón al documento
-                            document.getElementById('mensaje').appendChild(button);
-
+                                // Agregar el botón al documento
+                                document.getElementById('mensaje').appendChild(button);
+                            }
                         }
 
                     } else {
-                        // Ocurrió un error en la petición
                         console.error('Error en la petición: ' + xhr.status);
                     }
                 }

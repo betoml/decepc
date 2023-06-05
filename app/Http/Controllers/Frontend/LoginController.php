@@ -21,7 +21,7 @@ class LoginController extends Controller
             session()->put('id', $response['user']['id']);
             session()->put('nombre', $response['user']['nombres_users']);
             session()->put('token', $response['access_token']);
-            return Redirect::route('home');
+            return response()->json($response->json());
         } else {
             return response()->json($response->json());
         }
