@@ -54,3 +54,7 @@ Route::get('/p/{code}', function ($code) {
 
 
 Route::get('/s/{code}',[SeriesDetailController::class, 'index'])->name('series.show');
+
+Route::get('/player', function () {
+    return view('videoplayer.videoplayer');
+})->name('videoplayer');
