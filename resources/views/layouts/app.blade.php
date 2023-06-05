@@ -64,7 +64,7 @@
 
 
                 </ul>
-                <form  action="{{ url('buscar') }}" class="d-flex" method="GET">
+                <form  action="{{ url('buscar') }}" class="d-flex" method="HEAD">
                     @csrf
                     <input name="termino" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn colorPrincipal" type="submit">
