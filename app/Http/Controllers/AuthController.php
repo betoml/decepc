@@ -27,7 +27,7 @@ class AuthController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'nombres' => 'required|string|max:255',
+            'nombres_users' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users',
             'admin' => 'required|string|max:255',
@@ -42,7 +42,7 @@ class AuthController extends Controller
         }
 
         $user = User::create([
-            'nombres' => $request->nombres,
+            'nombres' => $request->nombres_users,
             'apellidos' => $request->apellidos,
             'username' => $request->username,
             'admin' => $request->admin,

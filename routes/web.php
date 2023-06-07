@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\AdminUsersController;
 use App\Http\Controllers\Frontend\BusquedaController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\SeriesDetailController;
@@ -62,3 +63,8 @@ Route::get('/player', function () {
 
 
 Route::get('/buscar', [BusquedaController::class, 'buscar'])->name('buscar');
+
+Route::get('/admin/users', [AdminUsersController::class, 'index']);
+
+
+Route::post('/admin/register', [AdminUsersController::class, 'register']);
