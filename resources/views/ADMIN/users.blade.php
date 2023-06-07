@@ -13,7 +13,7 @@
             @csrf
             <div class="row">
                 <div class="col-md-6">
-                    <input type="text" name="nombres" placeholder="Nombre(s)">
+                    <input type="text" name="nombres_users" placeholder="Nombre(s)">
                 </div>
                 <div class="col-md-6">
                     <input type="text" name="apellidos" placeholder="Apellido(s)">
